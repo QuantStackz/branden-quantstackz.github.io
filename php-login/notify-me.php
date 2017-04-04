@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["email"])) {
 		// The part for the storage in Mailchimp
 		if ($STORE_MODE == "mailchimp") {
 			
-			$MailChimp = new \Drewm\MailChimp($API_KEY);
+			$MailChimp = new MailChimp($API_KEY);
 			
 			$result = $MailChimp->call('lists/subscribe', array(
 		                'id'                => $LIST_ID,
