@@ -13,7 +13,7 @@ $API_KEY =  "c1199e81a32c7c9540d232265eca016f-us15";
 // MailChimp List ID  findable in your Mailchimp's dashboard
 $LIST_ID =  "73ac88ea31";
 			 
-
+$STORE_FILE = $_SERVER["DOCUMENT_ROOT"]."/subscription-list.txt";
 
 /* ************************************ */
 // Don't forget to check the path below
@@ -33,7 +33,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["email"])) {
 	header('Content-type: application/json');
 
 	// Checking if the email writing is good
-	if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	// The part for the storage in a .txt
+		if ($STORE_MODE == "file") {
+			
+			// SUCCESS SENDING
+			if(@file_put_contents($STORE_FILE, strtolower($email)."\r\n", FILE_APPEND)) {
+				echo json_encode(array(
+						"status" => "success"
+					));
+			// ERROR SENDING
+			} else {
+				echo json_encode(array(
+						"status" => "error",
+						"type" => "FileAccessError"
+					));
+			}
+		
+		// The part for the storage in Mailchimp
+		} elseif(filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		
 		
 		// The part for the storage in Mailchimp
