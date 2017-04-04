@@ -17,7 +17,7 @@ namespace Drewm;
  */
 class MailChimp
 {
-    private $api_key;
+    private $api_key="c1199e81a32c7c9540d232265eca016f-us15";
     private $api_endpoint = 'https://<dc>.api.mailchimp.com/2.0';
     private $verify_ssl   = false;
 
